@@ -32,33 +32,16 @@ sudo cp -P cuda/include/cudnn.h /usr/local/cuda/include/
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64/
 sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 
-# update bashrc
-echo "Updating bashrc"
-echo >> $HOME/.bashrc '
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
-export CUDA_HOME=/usr/local/cuda
-'
-
-source $HOME/.bashrc
-
-# create bash_profie
-echo "Creating bash_profile"
-echo > $HOME/.bash_profile '
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
-'
-
 # other Tensorflow dependencies
 sudo apt-get -y install libcupti-dev
 
 # upgrade pip
 sudo pip install --upgrade pip
 
-# install tensorflow 1.0
-export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.1-cp27-none-linux_x86_64.whl
-
-sudo pip install --upgrade $TF_BINARY_URL
+echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get -y install bazel
+sudo apt-get -y upgrade bazel
 
 echo "Script done"
 
