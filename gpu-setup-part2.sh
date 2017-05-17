@@ -13,6 +13,7 @@ fi
 cd $SETUP_DIR
 
 # install cudnn
+wget http://developer.download.nvidia.com/compute/redist/cudnn/v5.1/cudnn-8.0-linux-x64-v5.1.tgz
 if [ ! -f "cudnn-8.0-linux-x64-v5.1.tgz" ]; then
     echo "You need to download cudnn-8.0 manually! Specifically, place it at: $SETUP_DIR/cudnn-8.0-linux-x64-v5.1.tgz"
     exit
